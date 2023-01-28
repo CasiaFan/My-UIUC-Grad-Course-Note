@@ -1,0 +1,186 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{hw}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\graphicspath{ {.} }
+
+\begin{document}
+    \Large{\textbf{Q5.12}}
+
+    \noindent Since $\epsilon(t') = \epsilon_0sin\Omega t$, place it into $\sigma(t)$:\\
+    $$
+    \sigma(t)= \bint{-\infty}{t}dt'\ G(t-t')\cfrac{d\epsilon_0sin\Omega t'}{dt'}=\bint{-\infty}{t} dt'\ G(t-t')\epsilon_0\Omega cos\Omega t
+    $$
+    Let $\tau=t-t'$, so\\
+    $
+    \sigma(t)=\epsilon_0\Omega\bint{\infty}{0}d\tau\ (-G(\tau))cos(\Omega(t-\tau))\\=\epsilon_0\Omega\bint{0}{\infty}d\tau\ G(\tau)cos(\Omega(t-\tau))\\
+    =\epsilon_0\Omega\bint{0}{\infty}d\tau\ G(\tau)(cos\Omega tcos\Omega\tau+sin\Omega t sin\Omega \tau)\\
+    =\epsilon_0[(\Omega\bint{0}{\infty}d\tau\ G(\tau)sin\Omega \tau) sin\Omega t+(\Omega\bint{0}{\infty}d\tau\ G(\tau)cos\Omega\tau) cos\Omega t]\\
+    = \epsilon_0(G'(\Omega)sin\Omega t+G''(\Omega)cos\Omega t)
+    $
+
+    \newpage
+    \Large{\textbf{Q6.1}}
+    
+    $\mathbf{A}, \mathbf{B}$ is unitary matrix, so $\mathbf{A^\dagger A}=I=\mathbf{A^{-1}A}$ and $\mathbf{B^\dagger B}=I=\mathbf{B^{-1}B}$
+
+    \textbf{(a).}
+    $\mathbf{A^\dagger A}=I$
+
+    \textbf{(b).}
+    $\mathbf{A^\dagger A^{-1}}=\mathbf{A^\dagger A^\dagger}=\mathbf{A^\dagger}^2$
+
+    \textbf{(c).}
+    $(c\mathbf{AA^\dagger})^\dagger=(c\mathbf{I})^\dagger=\bar{c}\mathbf{I}$
+
+    \textbf{(d).}
+    $\newvec{\mathbf{A}&\mathbf{0}\\\mathbf{0}&\mathbf{B}}^{-1}=\newvec{\mathbf{A}^{-1}&\mathbf{0}\\\mathbf{0}&\mathbf{B}^{-1}}=\newvec{\mathbf{A^\dagger}&\mathbf{0}\\\mathbf{0}&\mathbf{B}^\dagger}$
+    
+    \newpage
+    \Large{\textbf{Q6.3}}
+
+    $\langle\mathbf{x}, \mathbf{y}\rangle\mathbf{z}=\mathbf{x}^\dagger \mathbf{y} \mathbf{z}$, where $\mathbf{x}^\dagger \mathbf{y}$ is multiplication of $1\times N$ and $N\times 1$ matrix and the result is scalar $m$. Therefore, \\
+    $\langle\mathbf{x,y}\rangle\mathbf{z}=m\mathbf{z}=\mathbf{z}m=\mathbf{zx^\dagger y}$
+
+    \hrulefill 
+
+    Need to expand into elements details\\
+    $\langle \mathbf{x,y}\rangle \mathbf{z}=\mathbf{\langle x, y \rangle}\mathbf{z}[n]\\
+    =\bsum{m=0}{M-1}x^*[m]y[m]z[n]\\
+    =\bsum{m=0}{M-1}x^*_my_mz_n\\
+    =\bsum{m=0}{M-1}z_nx^*_my_m\\
+    =\bsum{m=0}{M-1}[zx^*]_{nm}y_m\\
+    =[\mathbf{zx^\dagger y}]_n$
+    \newpage
+    \Large{\textbf{Q6.4}}
+
+    \textbf{(a).} $\mathbf{y=Ax}=\bsum{n=1}{N}A[m,n]x[n]$
+
+    \textbf{(b).} $\mathbf{x=[A^\dagger y]}=\bsum{m=1}{M}[A^\dagger]_{nm}y_m=\bsum{m=1}{M}A^*[n,m]y[m]$
+
+    \textbf{(c).} $\mathbf{y}=\mathcal{A}(x(t'))=\bint{-\infty}{\infty}dt'\ a_m(t')x(t')$
+
+    \textbf{(d).} $x(t')=\mathbf{A^\dagger y}(t')=\bsum{m=1}{M}a_m^*(t')y_m$
+
+    \textbf{(e).} $y(t)=\mathcal{A}\{x(t')\}=\bint{-\infty}{\infty}dt'\ a(t,t')x(t')$
+
+    \textbf{(f).} $x(t')=\mathcal{A}^\dagger\{y(t)\}=\bint{-\infty}{\infty}dt\ a^*(t, t')y(t)$
+
+    \hrulefill
+
+    Assume $\mathbf{y}$ is $m\times 1$ matrix, and $\mathbf{x}$ is $n\times 1$ matrix, 
+
+    \textbf{(a).}
+    It is a discrete-to-discrete transfromation in transformation matrix form. $\mathbf{A}$ is $m\times n$ matrix. \\
+    $\mathbf{y}=\mathbf{Ax}=(\bsum{i=1}{n}\mathbf{A}_{ji}\mathbf{x}_i), j=(1,...m)$
+
+    If $\mathbf{A}$ is fourier basis vectors, according to \S6.8 and forward DFT, \\
+    $\mathbf{y}=\cfrac{1}{\sqrt{N}}\bsum{n=0}{N-1}\mathbf{x}[n]exp(-i2\pi nk/N)=\mathbf{Y}[k]$ 
+
+    \textbf{(b).}
+    Similarly, $\mathbf{A^\dagger}$ is $n\times m$ transformation matrix. \\
+    $\mathbf{x}=[\mathbf{A^\dagger y}]=(\bsum{i=1}{m}\mathbf{A}^\dagger_{ji}\mathbf{y_i}), j=(1,...,n)$
+
+    Use \S5.8 inverse DFT, since the unitary transformation constant is $1/\sqrt{N}$, then\\
+    $\mathbf{x}=[\mathbf{A^\dagger y}]=\cfrac{1}{\sqrt{N}}\bsum{k=0}{N-1}\mathbf{y}[k]exp(i2\pi kn/N)=\mathbf{X}[n]$
+
+    \textbf{(c).}
+    It's a continuous-to-discrete transformation. $\mathcal{A}$ is a transformation operator. 
+    According to \S5.4 forward FS, so\\
+    $\mathbf{y}=\mathcal{A}\{x(t')\}=\infint dt'\ \mathcal{A}(x(t'))=\cfrac{1}{T_0}\bint{-T_0/2}{T_0/2}dt'\ x(t')exp(-i2\pi kt'/T_0)=\mathbf{Y}[k]$
+
+    \textbf{(d).}
+    It's a dicrete-to-continuous transformation.
+    According to \S5.4 inverse FS, so\\
+    $x(t')=[\mathbf{A^\dagger y}](t')=\bsum{k=-\infty}{\infty}\mathbf{A^\dagger}[k]\mathbf{y}[k]=\bsum{k=-\infty}{\infty}\mathbf{y}[k]exp(i2\pi kt'/T_0)$
+
+    \textbf{(f).}
+    It's a forward CT-FT as \S5.5. So\\
+    $y(t)=\mathcal{A}\{x(t')\}=\infint dt'\ \mathcal{A}(x(t'))=\infint dt'\ x(t')exp(-i2\pi tt')$
+    
+    \textbf{(g).}
+    It's a inverse CT-FT as \S5.5. So\\
+    $x(t')=\mathcal{A}^\dagger \{y(t)\}=\infint dt\ \mathcal{A^\dagger}(y(t))=\infint dt\ y(t) exp(i2\pi t't)$
+
+    \newpage
+    \Large{\textbf{Q6.5}}
+
+    Way 1: (Thanks Joseph Tibbs)\\
+    Move $e$ to the left of equation so that $\mathbf{g-e=Hf}$. Then apply $\mathbf{Q^\dagger}$ to both side,\\
+    \begin{equation*}
+    \begin{split}
+    \mathbf{Q^\dagger(g-e)} & =\mathbf{Q^\dagger Hf}\\
+    \cfrac{1}{\sqrt{N}}\sum_{n=0}^{N-1}(g[n]-e[n])exp(-i2\pi nk/N) &=\mathbf{Q^\dagger Hf}=\mathbf{\Lambda Q^\dagger f} \\
+    \cfrac{1}{\sqrt{N}}\sum_{n=0}^{N-1}g'[n]exp(-i2\pi nk/N) &=\mathbf{\Lambda Q^\dagger f}, Let\ g'=g-e \\ 
+    G'(k) &= H(k)F(k), \ use\ equation\ 6.8
+    \end{split}
+    \end{equation*}
+
+    \hrulefill
+
+    Way 2:\\
+    Apply forward fourier operater to $\mathbf{g=HF+e}$, then\\
+    $\mathbf{Q^\dagger g =Q^\dagger Hf +Q^\dagger e}$.
+
+    \noindent Apply equation 6.7 and 6.8, \\
+    $\mathbf{Q^\dagger g=\Lambda Q^\dagger f +Q^\dagger e}\\
+    \Longrightarrow G(k)=H(k)F[k]+\cfrac{1}{\sqrt{N}}\bsum{k=0}{N-1}e[n]exp(-i2\pi nk/N)\\
+    =H(k)F(k)+E(k)$
+
+    \noindent Because $\mathbf{e}$ exists constantly in the time domain, then as example 5.4.1 shows, the narrow functions in one domain imply broad functions in the other and vice versa. In this case, the $E(k)$ would have non-zero values in a very narrow width in frequency domain while the left values are all zeros. Therefore, $G(k)\approx H(k)F(k)$ which is the Fourier convolution theorem.
+
+    \newpage
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics*[width=0.5\textwidth]{hw_6_5.png}
+        \caption{$\mathcal{F}e$ in frequency domain with different $k$} 
+    \end{figure}
+
+    Code: \\
+    \begin{lstlisting}
+    hz=100;t=0:1/hz:1;uu=0:hz;a=2;
+    noi=randn(length(t),1)*a;
+    gu = fft(noi)/hz;
+    \end{lstlisting}
+    Frequency $k$ has impact on the transformed value. In theory, $dt \rightarrow 0$, which means $k=1/dt\rightarrow \infty$. Then $E(k)=\mathcal{F}e \rightarrow 0$
+
+    \newpage 
+    \Large{\textbf{Q6.6}}
+
+    As equation 6.3, fourier operator matrix \\
+    $\mathbf{Q}_{4\times 4}=\cfrac{1}{\sqrt{4}}\newvec{1&1&1&1\\1&exp(i2\pi/4)&exp(i2\pi*2/4)&exp(i2\pi*3/4)\\1&exp(i2\pi 2*1/4)&exp(i2\pi 2*2/4)&exp(i2\pi 2*3/4)\\1&exp(i2\pi 3*1/4)&exp(i2\pi 3*2/4)&exp(i2\pi 3*3/4)}\\
+    =\cfrac{1}{2}\newvec{1&1&1&1\\1&exp(i0.5\pi)&exp(i\pi)&exp(i1.5\pi)\\1&exp(i\pi)&exp(i2\pi)&exp(i3\pi)\\1&exp(i1.5\pi)&exp(i3\pi)&exp(i4.5\pi)}$
+
+    \noindent $\mathbf{Q_{4\times4}}$ is symmetric. Use euler's equation, then \\
+    $\mathbf{Q_{4\times4}}=\small\cfrac{1}{2}\newvec{1&1&1&1\\1&cos(0.5\pi)+isin(0.5\pi)&cos(\pi)+isin(\pi)&cos(1.5\pi)+isin(1.5\pi)\\1&cos(\pi)+isin(\pi)&cos(2\pi)+isin(2\pi)&cos(3\pi)+isin(3\pi)\\1&cos(1.5\pi)+isin(1.5\pi)&cos(3\pi)+isin(3\pi)&cos(4.5\pi)+isin(4.5\pi)}\\
+    =\large\cfrac{1}{2}\newvec{1&1&1&1\\1&i&-1&-i\\1&-1&1&-1\\1&-i&-1&i}$
+
+    \noindent $\mathbf{Q^\dagger Q}=\cfrac{1}{2}\newvec{1&1&1&1\\1&-i&-1&i\\1&-1&1&-1\\1&i&-1&-i}*\cfrac{1}{2}\newvec{1&1&1&1\\1&i&-1&-i\\1&-1&1&-1\\1&-i&-1&i}\\
+    =\cfrac{1}{4}\newvec{4&0&0&0\\0&4&0&0\\0&0&4&0\\0&0&0&4}=I_{4\times4}=\mathbf{QQ^\dagger}$
+
+    \noindent So $\mathbf{Q_{4\times4}}$ is unitary.
+
+    \newpage
+    \Large{\textbf{Q6.7}}
+
+    According to equation 5.30 in \S5.9:\\
+    $F(u, v)=\mathcal{F}f(x,y)=\infint dy\infint dx\ f(x,y)exp(-i2\pi(ux+vy))\\
+    =\infint dx\ Arect\cfrac{x-x_0}{X_0}exp(-i2\pi ux)\infint dy\ Brect\cfrac{y-y_0}{Y_0}exp(-i2\pi vy)\\
+    $
+    
+    \vspace{0.6cm}
+    \noindent Let $x'=x-x_0$ and use fourier shift theorem, then \\
+    $\infint dx\ Arect\cfrac{x-x_0}{X_0}exp(-i2\pi ux)\\
+    =Aexp(-i2\pi ux_0)\infint dx'\ rect\cfrac{x'}{X_0}exp(-i2\pi ux')\\
+    =Aexp(-i2\pi ux_0)\bint{-X_0/2}{X_0/2}dx'\ exp(-i2\pi u x')\\
+    =Aexp(-i2\pi ux_0)\cfrac{(exp(-i2\pi uX_0/2)-exp(-i2\pi u(-X_0/2)))}{-i2\pi u}\\
+    =AX_0exp(-i2\pi ux_0)\cfrac{sin(\pi uX_0)}{\pi uX_0}\\
+    =AX_0exp(-i2\pi uX_0)sinc(uX_0)\hspace{1.5cm}when\ sinc(t)=sin(\pi t)/(\pi t)$
+
+    \vspace{0.6cm}
+    \noindent Do the same thing for the $y$ part, then \\
+    $F(u,v)=AX_0exp(-i2\pi ux_0)sinc(uX_0)BY_0exp(-i2\pi vy_0)sinc(vY_0)$
+\end{document}
+
+

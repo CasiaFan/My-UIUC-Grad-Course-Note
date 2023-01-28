@@ -1,0 +1,253 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{relsize}
+\usepackage{listings,lstautogobble}
+\usepackage{xcolor}
+\usepackage[numbered, framed]{matlab-prettifier}
+\usepackage[margin=0.6in]{geometry}
+
+\graphicspath{ {.} }
+\newcommand{\bint}{\mathop{\mathlarger{\int}}}
+\newcommand{\infint}{\mathop{\mathlarger{\int_{-\infty}^\infty}}}
+\lstset{keywordstyle=\color{magenta},
+        style=Matlab-editor,
+        language=matlab, 
+        basicstyle=\small,
+        autogobble=true}
+
+\begin{document}
+    \Large{\textbf{Q5.1}}
+
+    $\mathcal{F}\{exp(-a^2x^2)\}=\infint dx\ exp(-a^2x^2)exp(-i2\pi ux)\\
+    =\infint dx\ exp(-a^2(x^2+\frac{i2\pi u}{a^2}x-\frac{\pi^2u^2}{a^4})-\frac{\pi^2u^2}{a^2})\\
+    =exp(-\frac{\pi^2u^2}{a^2})\infint dx\ exp(-a^2(x+\frac{i\pi u}{a^2})^2)$
+
+    \vspace{0.5cm}
+    \noindent Let $x' = x+\frac{i\pi u}{a}$, then\\
+    $\mathcal{F}=exp(-\frac{\pi^2u^2}{a^2})\infint dx' exp(-a^2x'^2)$
+    
+    \vspace{0.5cm}
+    \noindent The later term is Gaussian Integral, $\infint dx' exp(-a^2x'^2)=\sqrt{\frac{\pi}{a^2}}$, then\\
+    $\mathcal{F}\{exp(-a^2x^2)\}=\frac{\sqrt{\pi}}{a}exp(-\frac{\pi^2u^2}{a^2})$
+
+    \newpage
+    \Large{\textbf{Q5.2}}
+    
+    \noindent Let $x'=x-x_0$, and according to shift theorem\\ $\mathcal{F}\{g(t-t_0)\}=e^{-i2\pi ut_0}\mathcal{F}\{g(t')\}$, then \\
+    $\mathcal{F}\{h(x')\}=exp(-i2\pi ut_0)\mathcal{F}\{h(x')\}=exp(-i2\pi ut_0)\mathcal{F}\{\frac{1}{\sqrt{2\pi}\sigma}exp(-(\frac{1}{\sqrt{2}\sigma})^2x'^2)\}\\
+    =exp(-i2\pi ut_0)\frac{1}{\sqrt{2\pi}\sigma} \mathcal{F}\{exp(-(\frac{1}{\sqrt{2}\sigma})^2x'^2)\}$
+
+    \noindent Use Problem 5.1 which means $a=\frac{1}{\sqrt{2}\sigma}$, then \\ 
+    $\mathcal{F}\{h(x)\}=exp(-i2\pi ut_0)*\frac{1}{\sqrt{2\pi}\sigma}*\frac{\sqrt{\pi}}{\frac{1}{\sqrt{2}\sigma}}exp(-\frac{\pi^2u^2}{(\frac{1}{\sqrt{2}\sigma})^2})\\
+    =exp(-2\pi^2u^2\sigma^2-i2\pi ut_0)$
+
+    \newpage
+    \Large{\textbf{Q5.3}}
+
+    Use convolution theorem, $\mathcal{F}\{h(x)cos(2\pi u_0x)\}=\mathcal{F}\{h(x)\}\mathcal{F}\{cos(2\pi u_0 x)\}\\
+    =H(x)\mathcal{F}\{cos(2\pi u_0 x)\}$
+
+    \noindent Based on Euler's equation, $cos(x)=\frac{1}{2}[e^{ix}+e^{-ix}]$, then\\
+    $\mathcal{F}\{cos(2\pi u_0 x)\}=\infint dx\ \frac{1}{2}[exp(i2\pi u_0 x)+exp(-i2\pi u_0 x)]exp(-i2\pi u x)\\
+    =\frac{1}{2}\infint dx\ exp(-i2\pi(u-u_0)x)+\frac{1}{2}\infint dx\ exp(-i2\pi(u+u_0)x)\\
+    =\frac{1}{2}[\delta(u-u_0)+\delta(u+u_0)]$
+
+    \noindent So $\mathcal{F}=H(x)*\frac{1}{2}[\delta(u-u_0)+\delta(u+u_0)]=\frac{1}{2}[H(u-u_0)+H(u+u_0)]$ 
+
+    \newpage
+    \Large{\textbf{Q5.4}}
+
+    \textbf{a.}\\
+    $\frac{d}{dt}rect(\frac{t}{2T_0})=\begin{cases}
+        \infty & t=-T_0 \\
+        -\infty & t=T_0 \\
+        0 & t\neq -T_0\ or\ t\neq T_0 
+    \end{cases} \longrightarrow \\ \frac{d}{dt}rect(\frac{t}{2T_0}) = \delta(t+T_0)-\delta(t+T_0)$
+    
+    \noindent Use forward CT-FT, then\\
+    $\mathcal{F}\{\frac{d}{dt}rect(\frac{t}{2T_0})\}=\mathcal{F}\{\delta(t+T_0)-\delta(t-T_0)\}=\mathcal{F}\{\delta(t+T_0)\}-\mathcal{F}\{\delta(t-T_0)\}\\
+    =exp(i2\pi u T_0)-exp(-i2\pi u T_0)\\
+    =cos(2\pi u T_0)+i\ sin(2\pi u T_0)-(cos(-2\pi u T_0)+i\ sin(-2\pi u T_0))\\
+    =i2sin(2\pi u T_0)$ 
+
+    \textbf{b.}\\
+    According to derivative theorem, $\mathcal{F}\{\frac{d}{dt}f'(t)\}=i2\pi u F(u)$. Then use CT-FT theorm as equation 5.21, \\
+    $F(u)=\infint dt\ f(t)exp(-i2\pi ut)\\=\infint dt\ [rect(\frac{t}{2T_0})]exp(-i2\pi ut)=2T_0 sinc(2T_0u)$,\\
+
+    \noindent Therefore, $\mathcal{F}\{\frac{d}{dt}rect(\frac{t}{2T_0})\}=i2\pi u *2T_0sinc(2T_0u)\\
+    =i2\pi u *2T_0\frac{sin(2\pi u T_0)}{2\pi u T_0}=i2sin(2\pi u T_0)$
+    
+    \newpage
+    \Large{\textbf{Q5.5}}
+
+    \noindent Let $circ(r/a)=g(x,y)$, then\\
+    $\mathcal{F}_{2D}g(x,y)=G(u, v)=\infint dy \infint dx\ g(x, y)exp(-i2\pi (ux+vy))$
+
+    \vspace{0.5cm}
+    \noindent Since $r^2=x^2+y^2$ and $\rho^2=u^2+v^2$, transform to polar coordinates where \\ 
+    $x=rcos\theta,y=rsin\theta,u=\rho cos\varphi,v=\rho sin\varphi$, then\\
+    $\mathcal{F}_{2D}g(x,y)=\bint^a_0dr\bint_0^{2\pi}d\theta r\ exp(-i2\pi(r\rho cos\theta cos\varphi+ r\rho sin\theta sin \varphi))\\
+    =\bint^a_0dr\ r\bint_0^{2\pi}d\theta\ exp(-i2\pi r\rho cos(\theta-\varphi))$
+
+    \vspace{0.5cm}
+    \noindent Because $J_0(a)=\frac{1}{2\pi}\bint_0^{2\pi}d\theta\ exp(-iacos(\theta-\varphi))$, then \\
+    $exp(-i2\pi r\rho cos(\theta-\varphi))=2\pi J_0(2\pi r\rho)$. \\
+    Put it into previous equation, \\
+    $\mathcal{F}_{2D}g(x,y)=\bint^a_0dr\ r*2\pi J_0(2\pi r\rho)=\frac{1}{\rho}\bint^a_0dr\ 2\pi r\rho J_0(2\pi r\rho)$
+
+    \noindent Consider $\bint_0^\alpha d\beta\ \beta J_0(\beta)=\alpha J_1(\alpha)$ and let $w=2\pi r\rho$, then:\\
+    $\bint^a_0dr\ 2\pi r\rho J_0(2\pi r\rho)=\frac{1}{2\pi\rho}\bint_0^{2\pi a\rho} dw\ w J_0(w)=a J_1(2\pi a\rho)$
+
+    \vspace{0.5cm}
+    \noindent Also, $jinc(\rho)=2J_1(2\pi\rho)/2\pi\rho$,Therefore, \\
+    $\mathcal{F}_{2D}circ(r/a)=\frac{1}{\rho} a J_1(2\pi a\rho)=\frac{1}{\rho}a\pi* a\rho jinc(a\rho)=\pi a^2\ jinc(a\rho)$
+
+    \newpage
+    \Large{\textbf{Q5.6}}
+
+    \textbf{a. }\\
+    Use Euler theorem, $cos(\Omega_nt) = \frac{1}{2}(exp(i\Omega_nt)+exp(-i\Omega_nt))$\\
+    Replace it into FID function. Let $\Omega=2\pi u$ and apply FT\\
+    $\mathcal{F}\{FID(t)\}=\infint dt\ [M_0+\sum_{n=1}^3 M_n exp(-t/T_n)cos(\Omega_n t)]step(t)exp(-i\Omega t)\\
+    =M_0\bint_0^\infty dt\ exp(-i\Omega t)+\sum_{n=1}^3M_n\bint_0^\infty dt\ \frac{1}{2}exp(-t/T_n)(exp(i(\Omega_n-\Omega)t)+exp(-i(\Omega_n+\Omega)t))$
+
+    \vspace{0.5cm}
+    \noindent where \\
+    $\bint_0^\infty dt\ exp(-t/T_n)exp(i(\Omega_n-\Omega)t)\\=\bint_0^\infty dt\ exp(-(1/T_n-i(\Omega_n-\Omega))t)=\frac{1}{1/T_n-i(\Omega_n-\Omega)}$\\
+    and\\
+    $\bint_0^\infty dt\ exp(-t/T_n)exp(-i(\Omega_n+\Omega)t)\\=\bint_0^\infty dt\ exp(-(1/T_n+i(\Omega_n+\Omega))t)=\frac{1}{1/T_n+i(\Omega_n+\Omega)}$
+
+    \vspace{0.5cm}
+    \noindent Therefore, the later term is: \\
+    $\sum_{n=1}^3M_n\frac{i\Omega+1/T_n}{(1/Tn)^2+\Omega_n^2-\Omega^2+2i\Omega/T_n}$
+
+    \vspace{0.5cm}
+    \noindent Finally, \\
+    $\mathcal{F}\{FID(t)\} = \frac{M_0}{i\Omega}+\Sigma_{n=1}^3M_n\frac{i\Omega+1/T_n}{(1/Tn)^2+\Omega_n^2-\Omega^2+2i\Omega/T_n}$, where $\Omega=2\pi u$
+
+    \textbf{b.}\\
+    In equation a, easy to find the first $M_0$ term belongs to the imaginary part.  For the rest term, multiply both numerator and denominator by $(1/Tn)^2+\Omega_n^2-\Omega^2-2i\Omega/T_n$, then the real part should be : \\
+    $\sum_{n=1}^3M_n\frac{\frac{1}{T_n}(\frac{1}{T_n}+\Omega_n^2-\Omega^2)+2\Omega^2T_n}{((1/T_n)^2+\Omega_n^2-\Omega^2)^2+(2\Omega T_n)^2}$
+
+    \textbf{c.}\\
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics*[width=0.75\textwidth]{fid.jpg}
+        \caption{Real part of $\mathcal{F}\{FID(t)\}$ vs frequency $u$} 
+    \end{figure}
+
+    \vspace{4cm}
+    \noindent Using following function to compute each real part of $M_n$:\\ 
+    \begin{lstlisting}
+    function res = real(t0, m0, u0, u)
+        o=2*pi*u;
+        o0=2*pi*u0;
+        a=1/t0;
+        res=m0*(a*(a+o0^2-o.^2) + 2*o*t0)./((a^2+o0^2-o.^2).^2+(2*o*t0).^2);
+    end
+    \end{lstlisting}
+
+    \newpage
+    \Large{\textbf{Q5.7}}
+ 
+    \textbf{a.}\\
+    \noindent because $f_2$ is the time shift copy of $f_1$ with lower magnitude, so $f_2(t)=af_1(t-t_0)$, then the net output $g(t)$ would be the sum of $f_1$ and $f_2$.\\ 
+    $g(t) = f_1(t)+af_1(t-t_0)$ 
+    
+    \textbf{b.}\\
+    \noindent the power spectrum of $g$ is $G(u)=\mathcal{F}g$, so\\
+    $\mathcal{F}\{g(t)\}=\infint dt\ (f_1(t)+af_1(t-t_0))exp(-i2\pi ut)\\
+    =\infint dt\ f_1(t)exp(-i2\pi ut)+a\infint dt\ f_1(t-t_0)exp(-i2\pi u(t-t_0))exp(-i2\pi ut_0)\\
+    =F(u)+a*exp(-i2\pi ut_0)F(u)$
+    
+    \noindent use euler's equation, then\\
+    $\mathcal{F}\{g(t)\}=F(u)+a*(cos(2\pi ut_0)-isin(2\pi ut_0))F(u)\\
+    =(1+a*cos(2\pi ut_0))F(u)-ia*sin(2\pi ut_0)F(u)$
+
+    \vspace{0.5cm}
+    \noindent Since the predicted $F(u)$ is Gaussian-shaped spectrum, then $G(u)$ woule be like this shape with the following code.\\
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics*[width=0.6\textwidth]{fig5.7.jpg}
+        \caption{$\mathcal{G}\{u\}$ and $\mathcal{G}$ vs frequency $u$} 
+    \end{figure} 
+
+    \begin{lstlisting}
+    u=-0:0.01:10;sig=1;t0=2;a=0.2;u0=5;amp=1.5;
+    fu = amp*exp(-(u-u0).^2/sig^2);
+    gu = fu.*(1+a*cos(2*pi*u*t0));
+    \end{lstlisting}
+
+
+    \newpage
+    \Large{\textbf{Q5.8}}
+
+    \noindent From problem 5.2, we could get $\mathcal{F}\{c(t)\}=exp(-2\pi^2u^2\sigma^2)$
+
+    \noindent From problem 5.3, $\mathcal{F}\{0.5cos(2\pi u_0t)\}=\frac{1}{4}[\delta(u-u_0)+\delta(u+u_0)]$
+
+    \noindent So $\mathcal{F}\{g(t)\}=exp(-18\pi^2u^2/u_0^2)+0.25[\delta(u-u_0) +\delta(u+u_0)]$
+
+    \noindent The cosine signal would become a intensive pulse after CT-FT which locates at $u=60$Hz, where most of $c(t)$ output at this frequency would be zero. Therefore, the data could be used after filtering the cosine signal.
+    \textbf{c.}\\
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics*[width=0.75\textwidth]{fig5.8.jpg}
+        \caption{Real part of $\mathcal{F}\{g(t)\}$ vs frequency $u$} 
+    \end{figure} 
+
+    \newpage
+    \Large{\textbf{Q5.9}}
+
+    % \noindent according the definition of $f(t)$, since it's a rectangular function while $f(at-b)$ means output is shifted by $b$ and scaled by $a$. So we have $f(at-b)=a*f(t-b)$
+
+    % \vspace{0.5cm}
+    % \noindent Expand $G(u)$\\
+    % $G(u)=\infint dt\ g(t)=\infint dt\infint dt' h(t-t')f(at'-b)exp(-i2\pi u t)\\
+    % =\infint dt'\ f(at'-b) \infint dt\ h(t-t')exp(-i2\pi u t)\\
+    % =\infint dt'\ af(t'-b)\infint dt\ h(t-t')exp(-i2\pi u(t-t'))exp(-i2\pi u t')$
+
+    % \noindent Let $t_1=t-t'$, then\\
+    % $G(u)=\infint dt'\ af(t'-b)exp(-i2\pi ut')\infint dt_1\ h(t_1)exp(-i2\pi u t_1)\\
+    % =a\infint dt'\ f(t'-b)exp(-i2\pi u t')H(u)\\
+    % =a*exp(-i2\pi u b)\infint dt' f(t'-b)exp(-i2\pi u (t'-b))H(u)$
+    
+    % \noindent Likewise, let $t_2=t'-b$, then\\
+    % $G(u) = a*exp(-i2\pi u b)\infint t_2\ f(t_2)exp(-i2\pi u t_2)H(u)\\
+    % =a*exp(-i2\pi u b)H(u)F(u)$ 
+    $g(t)=\infint dt'\ h(t-t')f(at'-b)\\
+    =\infint dt'\infint d(u)H(u)exp(i2\pi u(t-t'))\infint du'F(u')exp(i2\pi u'(at'-b))\\
+    =\infint du' \infint du H(u)F(u')exp(i2\pi ut)exp(-i2\pi u'b)\infint dt' exp(-i2\pi (u-au')t')\\
+    =\infint du' \infint du H(u)F(u')exp(i2\pi(ut-u'b))\delta(u-au')\\
+    =\infint du'\ H(au')F(u')exp(i2\pi(at-b)u')$
+
+    \vspace{0.5cm}
+    \noindent Apply FT, 
+    $\mathcal{F}g(t)=\infint dt \infint du'\ H(au')F(u')exp(i2\pi(at-b)u') exp(-i2\pi ut)\\
+    =\infint du' H(au')F(u')exp(-i2\pi u'b)\infint dt exp(-i2\pi (u-au')t)\\
+    =\infint du' H(au')F(u')exp(-i2\pi u'b)\delta(u-au')\\
+    =H(u)F(\frac{u}{a})exp(-i2\pi u\frac{b}{a})$
+
+
+    \newpage
+    \Large{\textbf{Q5.10}} (Thanks \textbf{Charles Marchini} \& \textbf{Joseph Tibbs})
+
+    \noindent See equation \textbf{3.31}, for continuous function, if $Z=X+Y$ where $X$ and $Y$ are independent with each other. Then we have: \\
+    $p_Z(z)=\infint dx\ p_X(x) p_Y(z-x)$
+
+    But here because $X$ and $Y$ are poisson distribution, which only have positive values, so we need to get the discrete version of previous equation:\\
+    $p_Z(z)=\sum_{x=1}^z p_X(x)p_Y(z-x)$. \\
+    Put $p_X(x)=\lambda_x^x exp(-\lambda_x)/x!$ and $p_Y(z-x)=\lambda_y^{z-x}exp(-\lambda_y)/(z-x)!$ into previous equation, then we have:\\
+    $p_Z(z)=\sum_{x=1}^z \frac{\lambda_x^x exp(-\lambda_x)}{x!}\frac{\lambda_y^{z-x}exp(-\lambda_y)}{(z-x)!}\\
+    =\sum_{x=1}^z \frac{z!}{x!(z-x)!}\frac{\lambda_x^x\lambda_y^{z-x}exp(-\lambda_x)exp(-\lambda_y)}{z!}\\
+    =\frac{exp(-(\lambda_x+\lambda_y))}{z!}\sum_{x=1}^z \binom{z}{x} \lambda_x^x\lambda_y^{z-x}\\
+    =\frac{exp(-(\lambda_x+\lambda_y))}{z!}(\lambda_x+\lambda_y)^z\\
+    =\frac{(\lambda_x+\lambda_y)^z}{z!}exp(-(\lambda_x+\lambda_y))$
+
+    \noindent Let $\lambda_z=\lambda_x+\lambda_y$, $p_Z(z)=\lambda_z^z exp(-\lambda_z)/z!$. The result shows that the sum of two independent poisson distribution is still a poisson distribution.
+
+    
+
+\end{document}

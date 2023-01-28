@@ -1,0 +1,53 @@
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{relsize}
+\usepackage{listings,lstautogobble}
+\usepackage{xcolor}
+\usepackage[numbered, framed]{matlab-prettifier}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+\graphicspath{ {.} }
+\newcommand{\bint}[2]{\mathop{\mathlarger{\int_{#1}^{#2}}}}
+\newcommand{\infint}{\mathop{\mathlarger{\int_{-\infty}^\infty}}}
+\newcommand{\bsum}[2]{\mathlarger{\mathlarger{\sum_{#1}^{#2}}}}
+
+\lstset{keywordstyle=\color{magenta},
+        style=Matlab-editor,
+        language=matlab, 
+        basicstyle=\small,
+        autogobble=true}
+
+\newcommand{\neweq}[2]{
+    #1 = 
+    \begin{pmatrix*}[r]
+        #2
+    \end{pmatrix*}
+}
+    
+\newcommand{\newvec}[1]{
+    \begin{pmatrix*}[r]
+        #1
+    \end{pmatrix*}
+}
+    
+\newcommand{\newdet}[1]{
+    \begin{vmatrix}
+        #1
+    \end{vmatrix}
+}
+
+\newcommand{\qtitle}[1]{
+    \Large\textbf{#1}\\
+}
+
+\newcommand{\longeq}[1]{
+    \scalebox{#1}[1]{=}
+}
+
+\newcommand{\sqrtfrac}[2]{
+    \cfrac{#1}{\sqrt{#2}}
+}

@@ -1,0 +1,100 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{hw}
+
+\graphicspath{ {.} }
+\setlength\parindent{0pt}
+
+\begin{document}
+\qtitle{11.1}
+According to equation 11.21, $\mathcal{L}\{\ddot{g}(t)\}=s^2G(s)-sg(0)-\dot{g}(0)$, then we apply Laplace transform to both sides of equation:\\
+\vspace{-1cm}
+\begin{align*}
+  \mathcal{L}\{\ddot{g}(t)-4\dot{g}(t)+3g(t)\} &=\mathcal{L}f(t)\\
+  s^2G(s)-sg(0)-\dot{g}(0)-4(sG(s)-g(0))+3G(s)&=F(s) \\
+  let\ g(0)=\dot{g}(0)=0;\ (s^2-4s+3)G(s)&=F(s) \\
+  H(s)=G(s)/F(s)&=\cfrac{1}{(s-1)(s-3)}
+\end{align*}
+Here we can see that the nontrivial poles of this impulse response system are 1 and 3, which is larger than 0. Therefore, it's an unstable system. 
+
+Then according to appendix F.11, we have \\
+$h(t)=\mathcal{L}^{-1}\{H(s)\}=\cfrac{1}{a-b}(exp(-bt)-exp(-at))$ and $a=-1,b=-3$. So \\
+$h(t)=\cfrac{1}{2}(e^t+e^{3t})$. Also, the exponentially increasing function indicates it's unstable. 
+
+Since $f(t)=f_p step(t)$, for $g(t)$, $g(t)=[h*f](t)=\infint dt' h(t-t')f(t') \rightarrow\\
+g(t)=\infint dt' \cfrac{1}{2} (exp(t-t')+exp(3(t-t'))) f_p step(t')\\
+=\cfrac{f_p}{2}(exp(t)\bint{0}{\infty} dt' exp(-t')+exp(3t)\bint{0}{\infty} dt' exp(-3t'))\\
+=\cfrac{f_p}{2}(exp(t)+exp(3t)/3)$
+
+\newpage
+\qtitle{11.2}
+Like 11.1, \\
+\vspace{-1cm}
+\begin{align*}
+    \mathcal{L}(\ddot{g}(t)+a^2g(t)) &= \mathcal{L}(f(t)) \\
+    s^2 G(s)-sg(0)-\dot{g}(0)+a^2G(s) &= F(s) \\
+    (s^2+a^2)G(s) &= F(s); let\ g(0)=\dot{g}(0)=0 \\
+    H(s)=\cfrac{G(s)}{F(s)}=\cfrac{1}{s^2+a^2}
+\end{align*}
+
+According to Appendix F.17 and equation 11.18, \\
+$h(t)=1/2\pi \bint{\sigma-i\infty}{\sigma+i\infty} ds \cfrac{1}{a}\cfrac{a}{s^2+a^2}exp(st)\\
+=(1/a)*1/2\pi \bint{\sigma-i\infty}{\sigma+i\infty} ds \cfrac{a}{s^2+a^2}exp(st)\\
+=sin(at)/a$
+
+Because $a>0$, the response function's poles are on the imaginary axis, where $\sigma=0$. So it's a nondamping system, which is marginally stable.  
+
+Since $f(t)=cos(at)$, for $g(t)$, $g(t)=\infint dt' h(t-t')f(t')\\
+=\infint dt' cos(at')sin(a(t-t'))/a\\
+=\cfrac{1}{a}\infint dt' cos(at')(sin(at)cos(at')-cos(at)sin(at'))\\
+=\cfrac{1}{a}\infint dt' sin(at)cos(at')^2-cos(at)sin(at')cos(at')\\
+=\cfrac{1}{a}(sin(at)\infint dt' \cfrac{1}{2}(1-cos(2at'))-cos(at)\infint dt' \cfrac{1}{2} sin(2at'))\\
+=\cfrac{1}{a}sin(at)*1/2+0+0\\
+=\cfrac{sin(at)}{2a}$ 
+
+\newpage 
+\qtitle{11.3}
+Like 11.1 and 11.2, apply Laplace transform to both sides:
+\begin{align*}
+    \mathcal{L}\{m\ddot{x}(t)+b\dot{x}(t)+kx(t)\}& =\mathcal{L}\{f(t)\} \\
+    m(s^2X(s)-sx(0)-\dot{x}(0))+b(sX(s)-x(0))+kX(s)&=F(s)\\
+    (ms^2+bs+k)X(s)&=F(s) \\
+    H(s)=\cfrac{X(s)}{F(s)} &= \cfrac{1}{ms^2+bs+k}
+\end{align*}
+So $H(s)=\cfrac{1}{(s-\cfrac{-b+\sqrt{b^2-4mk}}{2m})(s-\cfrac{-b-\sqrt{b^2-4mk}}{2m})}$
+
+According to Appendix F.11, \\
+let $x_1=\cfrac{b+\sqrt{b^2-4mk}}{2m}; x_2=\cfrac{b-\sqrt{b^2-4mk}}{2m}$
+
+Then $h(t)=\mathcal{L}^{-1}H(s)=\cfrac{1}{x_1-x_2}(exp(-x_2t)-exp(-x_1t))\\
+=\cfrac{m}{\sqrt{b^2-4mk}}(exp(-\cfrac{b-\sqrt{b^2-4mk}}{2m}t)-(exp(-\cfrac{b+\sqrt{b^2-4mk}}{2m}t))$
+
+\vspace{1cm}
+We know that object would always have mass, meaning $m>0$.\\
+\textbf{(1)} When $\sqrt{b^2-4mk}\ge 0$, the poles are on the real axis.  If $b-\sqrt{b^2-4mk}<0$ which means at least one pole in on the positive real axis, this systems would be unstable. The response would increase exponentially. If $b+\sqrt{b^2-4mk}>b-\sqrt{b^2-4mk}>0$ which means both nontrivial poles are on the positive real axis, this could be a stable system. The response would decay exponentially.  
+
+\textbf{(2)} When $\sqrt{b^2-4mk}<0$, the poles woule be on the imaginary plane, indicating the system would have oscilating component. If $b<0$ which means the real part is on the positive real plane, it's an unstable system, wiht oscilatingly increasing component. If $b>0$, which means the poles are on the negative imaginary plane, the system is stable, with oscilatingly decreasing component. If $b=0$ which means the poles are on the imaginary axis, it's marginally stable, oscilating without decreasing. 
+
+\newpage
+\qtitle{11.4}
+Apply Laplace transform to both sides: \\
+\begin{align*}
+    \mathcal{L}\{\ddot{g}+3\dot{g}+2g\} &= 0\\
+    s^2G(s)-sg(0)-\dot{g}(0)+3(sG(s)-g(0))+2G(s) &=0\\
+    let\ g(0)=1;\dot{g}(0)=0;\ (s^2+3s+2)G(s)&=s+3;\\
+    G(s) &= \cfrac{s+3}{(s+1)(s+2)}
+\end{align*}
+
+Therefore, the system has nontrivial poles at $s=-1,-2$ and zeros at $s=-3$.
+
+According to Appendix F.11 and F.16, \\
+$g(t)=\mathcal{L}^{-1}\{G(s)\}=\mathcal{L}^{-1}\{\cfrac{s}{(s+1)(s+2)}+\cfrac{3}{(s+1)(s+2)}\}\\
+=\cfrac{e^{-t}-2e^{-2t}}{1-2}+3\cfrac{1}{1-2}(e^{-2t}-e^{-t})\\
+=2e^{-2t}-e^{-t}+3(e^{-t}-e^{-2t})\\
+=2e^{-t}-e^{-2t}$
+
+Then we compute the left part of equation by using $g(t)$, \\
+$\ddot{g}+3\dot{g}+2g=2e^{-t}-4e^{-2t}+3(-2e^{-t}+2e^{-2t})+2(2e^{-t}-e^{-2t})\\
+=(2-6+4)e^{-t}+(-4+6-2)e^{-2t}\\
+=0$
+So our computed $g(t)$ matches the equation. 
+\end{document}

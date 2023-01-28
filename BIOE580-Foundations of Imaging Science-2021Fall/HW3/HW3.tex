@@ -1,0 +1,95 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{hw}
+\usepackage{subcaption}
+
+\graphicspath{ {.} }
+\setlength\parindent{0pt}
+
+\newcommand{\svd}[1]{\bsum{#1=1}{R}\sqrt{\mu_{#1}}v_{#1}u_{#1}^*}
+\newcommand{\isvd}[1]{\bsum{#1=1}{R}\cfrac{1}{\sqrt{\mu_{#1}}}u_{#1}v_{#1}^*}
+\newcommand{\adsvd}[1]{\bsum{#1=1}{R}\sqrt{\mu_{#1}}u_{#1}v_{#1}^*}
+\newcommand{\mh}{\mathcal{H}}
+\newcommand{\mi}[1]{\mathcal{I}_{\mathbb{#1}}}
+\newcommand{\mmu}{\mathcal{U}}
+
+\begin{document}
+\qtitle{Ex1}
+\begin{align*}
+&\mh^+=\isvd{k} \rightarrow \mh=\svd{n}\\
+&\mh^+\mh\mh^+ =\isvd{k} \svd{n} \isvd{k}\\
+&Since\ \bsum{k=1}{R}v_k^*\bsum{n=1}{R}v_k=\delta_{kn} \\
+&Then\ =\bsum{k=1}{R}u_ku_k^* \isvd{k}\\
+&Similarly,\ \bsum{k=1}{R}u_k^*\bsum{k=1}{R}u_k=\delta_{kk}\\
+&Then,\ = \bsum{k=1}{R}u_k\cfrac{1}{\sqrt{\mu_k}}v_k^*\\
+&=\isvd{k}=\mh^+
+\end{align*}
+So $\mh^+\mh\mh^+ = \mh^+$ is satisfied.
+
+\newpage
+\qtitle{Ex2}
+Let $\mh=\svd{k}; \mh^*=\adsvd{k}; \mi{V}=\bsum{k=1}{R}v_kv_k^*$, \\
+$\mh*\mh^*+\eta\mi{V} =\svd{k}\adsvd{n}+\eta\bsum{k=1}{N}v_kv_k^*\\
+=\bsum{k=1}{R}\mu_k v_k v_k^* +\bsum{k=1}{N}\eta v_k v_k^*\\
+=\bsum{k=1}{N}(\mu_k+\eta)v_k v_k^*,\ since\ v_k=0\ if\ k\in[R+1,N]$
+
+Then $(\mh\mh^*+\eta\mi{V})^{-1}=\bsum{k=1}{N}\cfrac{1}{\mu_k+\eta}v_kv_k^*$
+
+Apply $\mh^*$ to it, $\mh^*(\mh\mh^*+\eta\mi{V})=\adsvd{k}\bsum{k=1}{N}\cfrac{1}{\mu_k+\eta}v_kv_k^*\\
+=\bsum{k=1}{N}\cfrac{\sqrt{\mu_k}}{\mu_k+\eta}u_kv_k^*
+$
+
+So $\underset{\eta\rightarrow 0}{lim} \mh^*(\mh\mh^*+\eta\mi{V})=\isvd{k}=\mh^+$ 
+
+The previous $\mh^+$ is the left inverse of $\mh$, when the dimension of $\mathcal{U}$ is higher than $\mathcal{V}$. The later $\mh^+$ is the right inverse of $\mh$, when the dimension of $\mathcal{U}$ is lower than $\mathcal{V}$. The previous one faces solution problem and the later one faces uniqueness problem. 
+
+\newpage
+\qtitle{Ex3}
+Suppose $g=\sum_n\beta_nv_n$.
+
+Consider $H^+g=\sum_k\cfrac{1}{\sqrt{\mu_k}}u_ku_k^*\sum_n\beta_nv_n=\sum_k\cfrac{1}{\sqrt{\mu_k}}\beta_ku_k$ 
+
+$HH^+g=\sum_k\sqrt{\mu_k}v_ku_k^*\sum_k\cfrac{1}{\sqrt{\mu_k}}\beta_ku_k=\sum_k\beta_kv_k=g$
+
+So $P_{cons}=HH^+$. 
+
+$P_{incons}=I_\mathbb{V}-P_{cons}=I_\mathbb{V}-HH^+$
+
+$P_{incons}g=g_{null}\rightarrow H^+P_{incons}g=0\\
+H^+(I_\mathbb{V}-HH^+)g=0\\
+(H^+-H^+HH^+)g = 0\\
+H^+ = H^+HH^+$,
+which satisfies the second Penrose equation.
+
+
+\newpage 
+\qtitle{Ex4}
+\textbf{a.}
+Let $f(x)=\bsum{n=1}{R}a_nx^n$, so $f(\lambda_k)=\bsum{n=1}{R}a_n\lambda_k^n$ and $f(A)=\bsum{n=1}{R}a_nA^n$
+
+Plug in $A^n=\sum_k\lambda_k^nP_k$, then\\
+$f(A)=\bsum{n=1}{R}a_n\bsum{k}{}\lambda_k^nP_k=\bsum{k}{}P_k\bsum{n=1}{R}a_n\lambda_k^n=\bsum{k}{}f(\lambda_k)P_k$
+
+ 
+\textbf{b.} 
+Since $\mh$ is hermitian, $\mh=\mh^*$, then \\
+
+$\mmu^*=exp(i\mh)^*=exp(-i\mh^*)=exp(-i\mh)=\cfrac{1}{exp(i\mh)}=\cfrac{1}{\mmu}=\mmu^{-1}$
+
+So $\mmu^*=\mmu^{-1}$, $\mmu$ is unitary.
+
+\textbf{c.} Since $\mmu$ is unitary, let $\mmu=QU Q^*$, where Q is unitary and $U=diag(\mu_1,\mu_2,,,,,\mu_k)$ is a diagonal matrix. 
+
+$log\mmu=Qlog(U) Q^*=i\mh\longrightarrow \mh=Q(-ilog(U))Q^*$ 
+
+Let $\mh=Q\Lambda Q^*=Qdiag(\lambda_1, \lambda_2, .., \lambda_k)Q$
+
+So $diag(\lambda_1,\lambda_2,...,\lambda_k)=diag(-ilog\mu_1,-ilog\mu_2,...,-ilog\mu_k)\\
+\lambda_k=-ilog\mu\rightarrow \mu_k=exp(i\lambda_k)$
+
+\textbf{Extra:} Assume $A=Q\Lambda Q^*$, where $Q$ is unitary. 
+
+So $A^n=(Q\Lambda Q^*)(Q\Lambda Q^*)...(Q\Lambda Q^*)\\
+=Q\Lambda (Q^*Q)\Lambda(Q^*...Q)\Lambda Q^*=Q\Lambda^nQ^*$
+. The eigenvalue of $A^n$ is $\{\lambda_1^n, \lambda_2^n, ..., \lambda_k^n\}$.\\
+Suppose $A=\sum_k \lambda_kP_k$, then $A^n=\sum_k\lambda_k^nP_k$
+\end{document}
